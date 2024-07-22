@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(fileUpload());
-app.use(express.static("uploads")); // Serve static files from the uploads directory
+app.use(express.static("uploads"));
 
 app.use("/auth", authRoute);
 app.use("/admin", authAdminRoute);

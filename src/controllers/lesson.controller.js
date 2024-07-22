@@ -29,7 +29,7 @@ const createLesson = async (req, res) => {
     const videoName = `${uuidv4()}.${video.mimetype.split("/")[1]}`;
     const uploadPath = path.join(process.cwd(), "uploads", videoName);
 
-    // Move the uploaded file to the uploads directory
+  
     await video.mv(uploadPath);
 
     const lesson = await prisma.lessons.create({
@@ -46,7 +46,7 @@ const createLesson = async (req, res) => {
   }
 };
 
-// Get All Lessons
+
 const getLessons = async (req, res) => {
   try {
     const lessons = await prisma.lessons.findMany({
@@ -61,7 +61,7 @@ const getLessons = async (req, res) => {
   }
 };
 
-// Get Single Lesson
+
 const getLessonById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -82,7 +82,7 @@ const getLessonById = async (req, res) => {
   }
 };
 
-// Update Lesson
+
 const updateLesson = async (req, res) => {
   try {
     const {isAdmin} = req.user
@@ -104,7 +104,7 @@ const updateLesson = async (req, res) => {
       const videoName = `${uuidv4()}.${video.mimetype.split("/")[1]}`;
       const uploadPath = path.join(process.cwd(), "uploads", videoName);
 
-      // Move the uploaded file to the uploads directory
+     
       await video.mv(uploadPath);
 
       lessonData.video = videoName;
@@ -125,7 +125,7 @@ const updateLesson = async (req, res) => {
   }
 };
 
-// Delete Lesson
+
 const deleteLesson = async (req, res) => {
   try {
     const {isAdmin} = req.user
