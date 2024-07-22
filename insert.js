@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function main() {
-  // Create Users
+
   const user1 = await prisma.user.create({
     data: {
       phone: '1234567890',
@@ -19,7 +19,7 @@ async function main() {
     },
   });
 
-  // Create Courses
+ 
   const course1 = await prisma.course.create({
     data: {
       title: 'Course 1',
@@ -34,7 +34,7 @@ async function main() {
     },
   });
 
-  // Create Lessons
+
   const lesson1 = await prisma.lessons.create({
     data: {
       title: 'Lesson 1',
@@ -59,7 +59,7 @@ async function main() {
     },
   });
 
-  // Create UserCourses
+
   const userCourse1 = await prisma.userCourses.create({
     data: {
       userId: user1.id,
