@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  phone    String  @map("phone") @unique
+  password String  @map("password")
+  isAdmin  Boolean @default(false)
+
+  userCourses UserCourses[]
+
+  @@map("users")
+  @@id([id])
+}
+
+model Course {
+  id    String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  title  String @map("title")
+  photo String @map("photo")
+
+  lessons     Lessons[]
+  userCourses UserCourses[]
+
+  @@map("courses")
+  @@id([id])
+}
+
+model Lessons {
+  id       String @default(dbgenerated("gen_random_uuid()")) @map("id") @db.Uuid
+  title     String @map("title")
+  video    String @map("video")
+  courseId String @db.Uuid
+
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("lessons")
+  @@id([id])
+}
+
+model UserCourses {
+  userId   String @db.Uuid
+  courseId String @db.Uuid
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("user_courses")
+  @@id([userId, courseId])
+}
